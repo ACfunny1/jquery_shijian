@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        .zhezhao {
+            position: absolute;
+            top: -183px;
+            left: 0px;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(233,233,233);
+            opacity: 0.4;
+            z-index: 5
+        }
+
+        a {
+            position: relative;
+            margin-right: 10px; 
+            width: 200px;
+            height: 200px;
+        }
+
+        .delete {
+            position: absolute;
+            left: 73px;
+            top: -105px;
+            width: 50px;
+            height: 50px;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <button class="create">创建</button>
+    <button class="edit">编辑</button>
+    <button class="btn_zhezhao">遮罩</button>
+
+    <div class="box"></div>
+
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script type="text/javascript">
+        /*返回一个img元素*/
+        function getSrc(){
+            var random = Math.floor(Math.random()*100)
+            var src = "<a herf='javascript:void(0)'><img src=https://picsum.photos/200/200/?image="+random+'></a>'
+            return src
+        }
+        /*返回遮罩元素*/
+        function getZhezhao(){
+            var zhezhao = "<div class='zhezhao'></div><button class='delete'>删除</button>"
+            return zhezhao
+        }
+
+        $('.create').on('click',function(){
+            $('.zhezhao').remove()
+            $('.delete').remove()
+            for(var i = 0;i<3;i++){
+                $(getSrc()).appendTo($('.box'))
+            }
+        })
+
+        $('.edit').on('click',function(){
+            var zhezhao = $("<div class='zhezhao zz'></div>")
+            if($('a .zhezhao').length<=0){
+                for(var i=0;i<$('a').length;i++){
+                    $(getZhezhao()).appendTo($('a')[i])
+                }
+            }else if($('a .zhezhao').length>0){
+                $('.zhezhao').remove()
+                $('.delete').remove()
+            }
+        })
+
+        $('.box').on('click','.delete',function(){
+            $(this).siblings().remove()
+            $(this).parent().remove()
+            $(this).remove()
+        })
+
+        $('.btn_zhezhao').on('click',function(){
+            $('.zhezhao').remove()
+            $('a').remove()
+        })
+    </script>
+</body>
+</html>
